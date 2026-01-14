@@ -77,9 +77,8 @@ async function check() {
     const msg = document.getElementById("msg");
 
     // SHA-256 của FLAG{crypto_is_easy}
-    const target =
-    "a5c6c9e0cb1d51c35c9a4f82e8f6e3a3c6e59a82b8c4c5e0bb92d4db6e3f1d6a";
-
+    const TARGET_HASH =
+"6f3e0d2a9f1d3f3a91c6f8b7a2a91b7f0dfb99e9c4cbe3d7c1d9fa3d2b9c6c55";
     const data = new TextEncoder().encode(input);
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     const hashHex = [...new Uint8Array(hashBuffer)]
