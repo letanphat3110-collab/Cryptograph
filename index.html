@@ -7,15 +7,69 @@
         .box { border: 2px solid #00ff00; display: inline-block; padding: 20px; box-shadow: 0 0 15px #00ff00; }
         input { background: #000; border: 1px solid #00ff00; color: #00ff00; padding: 10px; width: 300px; }
         button { background: #00ff00; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; }
+        .hint-container {
+    margin-top: 20px;
+    text-align: left;
+    display: inline-block;
+}
+
+.hint-icon {
+    background: #4a6cf7;
+    color: white;
+    border-radius: 50%;
+    padding: 0 5px;
+    font-size: 12px;
+}
+
+.hint-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.hint-btn {
+    background: #4f46e5; /* Màu tím đặc trưng */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.hint-btn:hover {
+    background: #4338ca;
+}
+
+.hint-box {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid #4f46e5;
+    color: #ccc;
+    font-size: 13px;
+    min-height: 20px;
+    max-width: 300px;
+}
     </style>
 </head>
 <body>
     <div class="box">
         <h1>[ SYSTEM LOCKED ]</h1>
-        <p>Target Hash: 693630f951...2a265147</p>
+        <p>Chúng tôi đã thu thập được một bản Hash từ hệ thống mật mã cũ. Hệ thống này sử dụng chuẩn SHA-256 để bảo vệ Flag.</p>
+        <p>Target Hash: 693630f951...2a265147</p> 
         <input type="text" id="flagInput" placeholder="Nhập Flag bạn tìm được...">
         <button onclick="check()">UNLOCK</button>
         <p id="msg"></p>
+        <div class="hint-container">
+    <p style="color: #aaa; font-size: 14px; margin-bottom: 5px;">Hints <span class="hint-icon">?</span></p>
+    <div class="hint-buttons">
+        <button class="hint-btn" onclick="toggleHint(1)">1</button>
+        <button class="hint-btn" onclick="toggleHint(2)">2</button>
+        <button class="hint-btn" onclick="toggleHint(3)">3</button>
+    </div>
+    <div id="hint-display" class="hint-box">Chọn một số để xem gợi ý...</div>
+</div>
     </div>
 
     <script>
@@ -38,6 +92,21 @@
                 msg.style.color = "red";
             }
         }
+        function toggleHint(level) {
+    const display = document.getElementById('hint-display');
+    let message = "";
+
+    if (level === 1) {
+        message = "💡 Hint 1: Flag có định dạng FLAG{...}";
+    } else if (level === 2) {
+        message = "💡 Hint 2: Từ khóa là 'Crypto is the Key' nhưng viết kiểu hacker (l33t).";
+    } else if (level === 3) {
+        message = "💡 Hint 3: Chữ 'o' là số '0', chữ 'e' là số '3', kết thúc là '2026'.";
+    }
+
+    display.innerText = message;
+    display.style.display = "block";
+}
     </script>
 </body>
 </html>
