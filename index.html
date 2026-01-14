@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CTF Crypto Level 2</title>
+    <style>
+        body { background: #050505; color: #00ff00; font-family: monospace; text-align: center; padding-top: 100px; }
+        .box { border: 2px solid #00ff00; display: inline-block; padding: 20px; box-shadow: 0 0 15px #00ff00; }
+        input { background: #000; border: 1px solid #00ff00; color: #00ff00; padding: 10px; width: 300px; }
+        button { background: #00ff00; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>[ SYSTEM LOCKED ]</h1>
+        <p>Target Hash: 693630f951...2a265147</p>
+        <input type="text" id="flagInput" placeholder="Nhập Flag bạn tìm được...">
+        <button onclick="check()">UNLOCK</button>
+        <p id="msg"></p>
+    </div>
+
+    <script>
+        async function check() {
+            const input = document.getElementById('flagInput').value;
+            // Hàm băm SHA-256
+            const msgBuffer = new TextEncoder().encode(input);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+            const target = "693630f9518671607f35316447c2343949989a07f6e090df42b937072a265147";
+            const msg = document.getElementById('msg');
+
+            if (hashHex === target) {
+                msg.innerText = "ACCESS GRANTED! Bạn là bậc thầy mật mã.";
+                msg.style.color = "cyan";
+            } else {
+                msg.innerText = "ACCESS DENIED. Mã băm không khớp!";
+                msg.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
