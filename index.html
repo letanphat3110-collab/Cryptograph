@@ -51,27 +51,71 @@
     min-height: 20px;
     max-width: 300px;
 }
+        #launch-btn {
+    background: linear-gradient(90deg, #22d3ee, #2dd4bf); /* Màu xanh giống ảnh */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+#launch-btn:hover {
+    opacity: 0.8;
+    transform: scale(1.02);
+}
+
+.hint-btns button {
+    background: #4f46e5; /* Màu tím giống ảnh */
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.unlock-btn {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
     </style>
 </head>
 <body>
     <div class="box">
-        <h1>[ SYSTEM LOCKED ]</h1>
-        <p>Chúng tôi đã thu thập được một bản Hash từ hệ thống mật mã cũ. Hệ thống này sử dụng chuẩn SHA-256 để bảo vệ Flag.</p>
-        <p>Target Hash: 693630f9518671607f35316447c2343949989a07f6e090df42b937072a265147s</p> 
-        <input type="text" id="flagInput" placeholder="Nhập Flag bạn tìm được...">
-        <button onclick="check()">UNLOCK</button>
-        <p id="msg"></p>
-        <div class="hint-container">
-    <p style="color: #aaa; font-size: 14px; margin-bottom: 5px;">Hints <span class="hint-icon">?</span></p>
-    <div class="hint-buttons">
-        <button class="hint-btn" onclick="toggleHint(1)">1</button>
-        <button class="hint-btn" onclick="toggleHint(2)">2</button>
-        <button class="hint-btn" onclick="toggleHint(3)">3</button>
-    </div>
-    <div id="hint-display" class="hint-box">Chọn một số để xem gợi ý...</div>
-</div>
+    <h1>Web Exploitation: head-dump</h1>
+    <p>Thử thách này yêu cầu bạn khởi tạo một phiên làm việc để lấy dữ liệu.</p>
+
+    <div id="setup-area">
+        <button id="launch-btn" onclick="launchInstance()">Launch Instance</button>
+        <p id="status-text">Status: <span style="color: #ff4444;">NOT_RUNNING</span></p>
     </div>
 
+    <div id="challenge-content" style="display: none;">
+        <hr style="border: 0.5px solid #333; margin: 20px 0;">
+        <p>Target Hash: <span style="color: #00ff00; font-family: monospace;">693630f9518671607f35316447c2343949989a07f6e090df42b937072a265147</span></p>
+        
+        <input type="text" id="flagInput" placeholder="Nhập Flag bạn tìm được...">
+        <button class="unlock-btn" onclick="check()">SUBMIT FLAG</button>
+        <p id="msg"></p>
+
+        <div class="hint-section">
+            <p>Hints <span class="hint-q">?</span></p>
+            <div class="hint-btns">
+                <button onclick="alert('Hint 1: Định dạng là FLAG{...}')">1</button>
+                <button onclick="alert('Hint 2: Key là Crypto is the Key (viết kiểu l33t)')">2</button>
+                <button onclick="alert('Hint 3: 2026')">3</button>
+            </div>
+        </div>
+    </div>
+</div>
     <script>
         async function check() {
             const input = document.getElementById('flagInput').value;
@@ -106,6 +150,26 @@
 
     display.innerText = message;
     display.style.display = "block";
+}
+        function launchInstance() {
+    const btn = document.getElementById('launch-btn');
+    const status = document.getElementById('status-text');
+    const content = document.getElementById('challenge-content');
+
+    btn.innerText = "Starting...";
+    btn.style.opacity = "0.5";
+
+    // Giả lập thời gian chờ 1.5 giây để "khởi động" server
+    setTimeout(() => {
+        btn.style.display = "none";
+        status.innerHTML = 'Status: <span style="color: #00ff00;">RUNNING</span>';
+        content.style.display = "block"; // Hiện Hash và ô nhập Flag
+    }, 1500);
+}
+
+// Giữ lại hàm check() mã Hash SHA-256 của bạn ở bên dưới...
+async function check() {
+    // ... code so sánh hash của bạn ...
 }
     </script>
 </body>
