@@ -117,48 +117,42 @@
     </div>
 </div>
     <script>
-        async function check() {
-            const input = document.getElementById('flagInput').value;
-            // Hàm băm SHA-256
-            const msgBuffer = new TextEncoder().encode(input);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+async function check() {
+    try {
+        // Đã bỏ dấu // và dấu ) dư thừa
+        const input = document.getElementById('flagInput').value.trim();
+        const msg = document.getElementById('msg'); // Đã sửa từ mgs thành msg
+        
+        const msgBuffer = new TextEncoder().encode(input);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
-            const target = "693630f9518671607f35316447c2343949989a07f6e090df42b937072a265147";
-            const msg = document.getElementById('msg');
+        const target = "693630f9518671607f35316447c2343949989a07f6e090df42b937072a265147";
 
-            if (hashHex === target) {
-                msg.innerText = "ACCESS GRANTED! Bạn là bậc thầy mật mã.";
-                msg.style.color = "cyan";
-            } else {
-                msg.innerText = "ACCESS DENIED. Mã băm không khớp!";
-                msg.style.color = "red";
-            }
+        if (hashHex === target) {
+            msg.innerText = "🔓 ACCESS GRANTED!";
+            msg.style.color = "cyan";
+        } else {
+            msg.innerText = "❌ ACCESS DENIED!";
+            msg.style.color = "red";
         }
-        function toggleHint(level) {
-    const display = document.getElementById('hint-display');
-    let message = "";
-
-    if (level === 1) {
-        message = "💡 Hint 1: Flag có định dạng FLAG{...}";
-    } else if (level === 2) {
-        message = "💡 Hint 2: Từ khóa là 'Crypto is the Key' nhưng viết kiểu hacker (l33t).";
-    } else if (level === 3) {
-        message = "💡 Hint 3: Chữ 'o' là số '0', chữ 'e' là số '3', kết thúc là '2026'.";
+    } catch (e) {
+        console.log(e);
     }
-
-    display.innerText = message;
-    display.style.display = "block";
 }
-        function launchInstance() {
-    const btn = document.getElementById('launch-btn');
-    const status = document.getElementById('status-text');
-    const content = document.getElementById('challenge-content');
 
-    btn.innerText = "Starting...";
-    btn.style.opacity = "0.5";
+function launchInstance() {
+    document.getElementById('launch-btn').innerText = "Starting...";
+    setTimeout(() => {
+        document.getElementById('setup-area').style.display = 'none';
+        document.getElementById('challenge-content').style.display = 'block';
+    }, 1000);
+}
 
+function toggleHint(level) {
+    alert("Hint " + level + " đã hiện trên màn hình!");
+}
     // Giả lập thời gian chờ 1.5 giây để "khởi động" server
     setTimeout(() => {
         btn.style.display = "none";
