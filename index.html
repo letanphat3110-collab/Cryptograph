@@ -143,8 +143,14 @@ async function check() {
 }
 
 function launchInstance() {
-    document.getElementById('launch-btn').innerText = "Starting...";
+    const btn = document.getElementById('launch-btn');
+    const status = document.getElementById('status-text');
+
+    btn.innerText = "Starting...";
+    status.innerHTML = 'Status: <span style="color: orange;">STARTING</span>';
+
     setTimeout(() => {
+        status.innerHTML = 'Status: <span style="color: #00ff00;">RUNNING</span>';
         document.getElementById('setup-area').style.display = 'none';
         document.getElementById('challenge-content').style.display = 'block';
     }, 1000);
@@ -153,19 +159,7 @@ function launchInstance() {
 function toggleHint(level) {
     alert("Hint " + level + " đã hiện trên màn hình!");
 }
-   
-        // Giả lập thời gian chờ 1.5 giây để "khởi động" server
-    setTimeout(() => {
-        btn.style.display = "none";
-        status.innerHTML = 'Status: <span style="color: #00ff00;">RUNNING</span>';
-        content.style.display = "block"; // Hiện Hash và ô nhập Flag
-    }, 1500);
-}
 
-// Giữ lại hàm check() mã Hash SHA-256 của bạn ở bên dưới...
-async function check() {
-    // ... code so sánh hash của bạn ...
-}
     </script>
 </body>
 </html>
