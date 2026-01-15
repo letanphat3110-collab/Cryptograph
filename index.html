@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Crypto Challenge</title>
+
+<style>
+body {
+    background: #0f172a;
+    font-family: Arial, sans-serif;
+    color: #e5e7eb;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.card {
+    width: 420px;
+    background: #020617;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.badge {
+    display: inline-block;
+    background: #1e40af;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+h2 {
+    margin-top: 15px;
+}
+
+.desc {
+    font-size: 14px;
+    color: #cbd5f5;
+}
+
+.launch {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background: linear-gradient(90deg,#f97316,#fb7185);
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.info {
+    margin-top: 15px;
+    display: none;
+}
+
+.code {
+    background: #020617;
+    border: 1px solid #334155;
+    padding: 10px;
+    font-family: monospace;
+    margin-top: 8px;
+    color: #38bdf8;
+}
+
+.status {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.timer {
+    color: #facc15;
+}
+  .hints button {
+    background: #2563eb;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    margin-right: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.hint-box {
+    margin-top: 10px;
+    padding: 10px;
+    background: #020617;
+    border: 1px solid #334155;
+    font-size: 14px;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <span class="badge">browser_webshell_solvable</span>
+
+    <h2>Description</h2>
+    <p class="desc">
+        A company stored a secret message on a server which got breached due to weak hashed passwords.
+        Can you retrieve the secret?
+    </p>
+
+    <button class="launch" onclick="launch()">Launch Instance</button>
+
+    <div class="info" id="info">
+        <p>Status: <span class="status">RUNNING</span></p>
+        <p>Instance Time Remaining: <span class="timer" id="time">15:00</span></p>
+
+        <div class="code">
+            nc verbal-sleep.picoctf.net 57889
+        </div>
+      <h3 style="margin-top:20px;">Hints ❓</h3>
+
+<div class="hints">
+    <button onclick="showHint(1)">1</button>
+    <button onclick="showHint(2)">2</button>
+    <button onclick="showHint(3)">3</button>
+
+    <div id="hintBox" class="hint-box"></div>
+</div>
+    </div>
+</div>
+
+<script>
+let seconds = 900;
+let interval;
+
+function launch() {
+    document.getElementById("info").style.display = "block";
+
+    interval = setInterval(() => {
+        seconds--;
+        let m = Math.floor(seconds / 60);
+        let s = seconds % 60;
+        document.getElementById("time").textContent =
+            `${m}:${s.toString().padStart(2, "0")}`;
+
+        if (seconds <= 0) {
+            clearInterval(interval);
+            document.getElementById("time").textContent = "EXPIRED";
+        }
+    }, 1000);
+}
+  
+function showHint(n) {
+    const hintBox = document.getElementById("hintBox");
+    hintBox.style.display = "block";
+
+    const hints = {
+        1: "Hint 1: Challenge này cần sử dụng Linux command line.",
+        2: "Hint 2: Lệnh nc (netcat) cho phép bạn kết nối đến server từ terminal.",
+        3: "Hint 3: Bạn có thể dùng echo, pipe (|) và redirect để gửi input tự động."
+    };
+
+    hintBox.textContent = hints[n];
+}
+</script>
+
+</body>
+</html>
