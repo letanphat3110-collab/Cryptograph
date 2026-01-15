@@ -165,6 +165,19 @@ function showHint(n) {
 
     hintBox.textContent = hints[n];
 }
+    function checkFlag() {
+    const correctFlag = "FLAG{Crypt0_i5_th3_K3y_2026}";
+    const userFlag = document.getElementById("flagInput").value.trim();
+    const result = document.getElementById("result");
+
+    if (userFlag === correctFlag) {
+      result.style.color = "#22c55e";
+      result.innerText = "✅ Correct! Challenge completed!";
+    } else {
+      result.style.color = "#ef4444";
+      result.innerText = "❌ Wrong flag. Try again!";
+    }
+    }
 </script>
 
 </body>
