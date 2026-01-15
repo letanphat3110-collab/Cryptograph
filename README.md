@@ -3,7 +3,7 @@ Chúng tôi đã thu thập được một bản Hash từ hệ thống mật m�
 Hệ thống này sử dụng chuẩn **SHA-256** để bảo vệ Flag.
 
 **Dữ liệu thu thập:**
-`693630f9518671607f35316447c2343949989a07f6e090df42b937072a265147`
+`0bd069a19f061644d78d99745b3a7a42715aefd7b42eaee34194de978bc13ad3`
 
 **Gợi ý (Hints):**
 1. Flag có định dạng chuẩn: `FLAG{...}`
